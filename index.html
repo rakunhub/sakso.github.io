@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RakunHub Giriş</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000 url('anime_girl_red.gif') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+    }
+    .logo {
+      display: block;
+      margin: 30px auto 10px;
+      width: 100px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px;
+    }
+    h1 {
+      text-align: center;
+      color: red;
+      text-shadow: 0 0 10px red;
+    }
+    .login {
+      text-align: center;
+      margin-top: 20px;
+    }
+    input[type="password"] {
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <img src="rakunhub_logo_preview.png" alt="Logo" class="logo">
+  <h1>Hoşgeldin oe</h1>
+  <div class="login">
+    <input type="password" id="password" placeholder="Şifre girin">
+    <button onclick="girisYap()">Giriş Yap</button>
+  </div>
+  <audio autoplay loop>
+    <source src="beat.mp3" type="audio/mpeg">
+  </audio>
+  <script>
+    function girisYap() {
+      const sifre = document.getElementById('password').value;
+      if (sifre === "rakunhub") {
+        window.location.href = "galeri.html";
+      } else if (sifre === "rakunadmin") {
+        window.location.href = "admin.html";
+      } else {
+        alert("Yanlış şifre!");
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RakunHub Admin</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fff url('anime_girl_red.gif') no-repeat center center fixed;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      color: black;
+    }
+    .logo {
+      display: block;
+      margin: 10px auto;
+      width: 120px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px;
+    }
+    .upload-box {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .upload-box input {
+      display: none;
+    }
+    .upload-label {
+      display: inline-block;
+      background-color: #333;
+      color: #fff;
+      padding: 15px 25px;
+      margin: 10px;
+      cursor: pointer;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>rakunhub galerisi</h1>
+  <img src="rakunhub_logo_preview.png" alt="Logo" class="logo">
+  <div class="upload-box">
+    <label class="upload-label" for="upload-photo">📷 Fotoğraf Ekle</label>
+    <input type="file" id="upload-photo" accept="image/*">
+    <br>
+    <label class="upload-label" for="upload-video">🎞️ Video Ekle</label>
+    <input type="file" id="upload-video" accept="video/*">
+  </div>
+  <audio autoplay loop>
+    <source src="beat.mp3" type="audio/mpeg">
+  </audio>
+</body>
+</html>
