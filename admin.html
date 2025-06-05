@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Paneli</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin">
+  <h1 class="neon-text">Admin Paneli</h1>
+  <input type="file" id="upload" multiple>
+  <div class="gallery-container" id="gallery"></div>
+  <script>
+    const input = document.getElementById('upload');
+    const gallery = document.getElementById('gallery');
+    let images = JSON.parse(localStorage.getItem('images') || '[]');
+    render();
+
+    input.addEventListener('change', e => {
+      [...e.target.files].forEach(file => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          images.push(reader.result);
+          localStorage.setItem('images', JSON.stringify(images));
+          render();
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    function render() {
+      gallery.innerHTML = '';
+      images.forEach((src, index) => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'img-wrapper';
+        const img = document.createElement('img');
+        img.src = src;
+        const del = document.createElement('span');
+        del.textContent = '🗑️';
+        del.className = 'delete-icon';
+        del.onclick = () => {
+          if (confirm('Silmek istediğinize emin misiniz?')) {
+            images.splice(index, 1);
+            localStorage.setItem('images', JSON.stringify(images));
+            render();
+          }
+        };
+        wrapper.appendChild(img);
+        wrapper.appendChild(del);
+        gallery.appendChild(wrapper);
+      });
+    }
+  </script>
+</body>
+</html>
