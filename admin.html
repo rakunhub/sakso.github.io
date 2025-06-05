@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Paneli</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="neon-text">
+    <h1>Rakunhub Admin</h1>
+    <input type="file" id="fileInput" multiple>
+    <div id="gallery"></div>
+
+    <script>
+        let images = JSON.parse(localStorage.getItem("images") || "[]");
+        const gallery = document.getElementById("gallery");
+
+        function renderGallery() {
+            gallery.innerHTML = "";
+            images.forEach((src, index) => {
+                const wrapper = document.createElement("div");
+                wrapper.className = "img-wrapper";
+                const img = document.createElement("img");
+                img.src = src;
+                const del = document.createElement("button");
+                del.textContent = "🗑️";
+                del.className = "delete-btn";
+                del.onclick = () => {
+                    if (confirm("Silmek istediğine emin misin?")) {
+                        images.splice(index, 1);
+                        localStorage.setItem("images", JSON.stringify(images));
+                        renderGallery();
+                    }
+                };
+                wrapper.appendChild(img);
+                wrapper.appendChild(del);
+                gallery.appendChild(wrapper);
+            });
+        }
+
+        document.getElementById("fileInput").addEventListener("change", e => {
+            [...e.target.files].forEach(file => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    images.push(reader.result);
+                    localStorage.setItem("images", JSON.stringify(images));
+                    renderGallery();
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        renderGallery();
+    </script>
+</body>
+</html>

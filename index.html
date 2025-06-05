@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Rakunhub Giriş</title>
+    <link rel="stylesheet" href="style.css">
+    <audio autoplay loop id="bgMusic" src="beat.mp3"></audio>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="rakunhub_logo_preview.png" class="logo" alt="rakunhub">
+    </div>
+    <div class="login-box neon-text">
+        <h1>Hoşgeldin oe</h1>
+        <input type="password" id="password" placeholder="Şifre gir">
+        <button onclick="login()">Giriş Yap</button>
+    </div>
+    <div class="anime-girl-bg">
+        <img src="anime_girl_red.gif" alt="anime" class="anime-girl">
+    </div>
+    <script>
+        function login() {
+            const pwd = document.getElementById('password').value;
+            if (pwd === "rakunhub") {
+                window.location.href = "gallery.html";
+            } else if (pwd === "rakunadmin") {
+                window.location.href = "admin.html";
+            } else {
+                alert("Hatalı şifre!");
+            }
+        }
+    </script>
+</body>
+</html>
