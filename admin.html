@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rakunhub Admin</title>
+  <style>
+    body {
+      background: black url('anime_girl_red.gif') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+    .logo {
+      width: 100px;
+    }
+    input[type="file"] {
+      margin: 20px;
+    }
+    .gallery {
+      margin-top: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    .item {
+      position: relative;
+      display: inline-block;
+    }
+    .item img, .item video {
+      max-width: 160px;
+      border-radius: 8px;
+    }
+    .delete-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <img src="rakunhub_logo_preview.png" class="logo" />
+  <h2>İçerik Ekle</h2>
+  <input type="file" id="upload" multiple>
+  <div class="gallery" id="adminGallery"></div>
+
+  <script>
+    const upload = document.getElementById("upload");
+    const gallery = document.getElementById("adminGallery");
+    let items = JSON.parse(localStorage.getItem("rakun_items") || "[]");
+
+    function render() {
+      gallery.innerHTML = "";
+      items.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "item";
+        const media = document.createElement(item.type.startsWith("image") ? "img" : "video");
+        media.src = item.src;
+        if (item.type.startsWith("video")) media.controls = true;
+
+        const btn = document.createElement("button");
+        btn.innerHTML = "🗑️";
+        btn.className = "delete-btn";
+        btn.onclick = () => {
+          if (confirm("Silmek istediğinize emin misiniz?")) {
+            items.splice(index, 1);
+            localStorage.setItem("rakun_items", JSON.stringify(items));
+            render();
+          }
+        };
+        div.appendChild(media);
+        div.appendChild(btn);
+        gallery.appendChild(div);
+      });
+    }
+
+    upload.addEventListener("change", e => {
+      [...e.target.files].forEach(file => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          items.push({ src: reader.result, type: file.type });
+          localStorage.setItem("rakun_items", JSON.stringify(items));
+          render();
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    render();
+  </script>
+</body>
+</html>

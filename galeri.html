@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rakunhub Galerisi</title>
+  <style>
+    body {
+      background: white url('anime_girl_red.gif') no-repeat center center fixed;
+      background-size: cover;
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 60px;
+    }
+    h1 {
+      font-size: 36px;
+    }
+    .logo {
+      width: 100px;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      padding: 20px;
+    }
+    .gallery-item {
+      background: rgba(255,255,255,0.8);
+      padding: 10px;
+      border-radius: 12px;
+    }
+    .gallery-item img, .gallery-item video {
+      max-width: 200px;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <h1>rakunhub galerisi</h1>
+  <img src="rakunhub_logo_preview.png" class="logo" />
+  <div class="gallery" id="gallery"></div>
+
+  <script>
+    const items = JSON.parse(localStorage.getItem("rakun_items") || "[]");
+    const gallery = document.getElementById("gallery");
+    items.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "gallery-item";
+      if (item.type.startsWith("image")) {
+        const img = document.createElement("img");
+        img.src = item.src;
+        div.appendChild(img);
+      } else if (item.type.startsWith("video")) {
+        const video = document.createElement("video");
+        video.src = item.src;
+        video.controls = true;
+        div.appendChild(video);
+      }
+      gallery.appendChild(div);
+    });
+  </script>
+</body>
+</html>
